@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest
 from django.template import loader
 from django.core.exceptions import PermissionDenied
 
@@ -101,8 +101,19 @@ def itemproperty(request, id=None):
     context = {
         "FormulaireItem":itemform,
         "FormResponse":"",
-        "exist":""
+        "exist":"",
+        "Grade":"",
     }
+
+    match(request.user.usertype):
+        case CustomUser.STUDENT:
+            context["Grade"] = "Élève"
+
+        case CustomUser.TEACHER:
+            context["Grade"] = "Enseignant"
+
+        case CustomUser.ADMINISTRATIF:
+            context["Grade"] = "Administratif"
 
     if id == None:
         context["FormResponse"]="/item/add/"
