@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome/css/fontawesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome/css/solid.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome/css/brands.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-simple/css/master.css' %}" rel="stylesheet">
+    {% block head %}{% endblock %}
+
+    <title>{% block title %}Lycée Réaumur{% endblock %}</title>
+</head>
+
+<body>
+    <main class="wrapper">
+        <nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <img src="{% static 'img/logo.jpeg' %}" alt="bootraper logo" class="app-logo" style="width: 30%;">
+            </div>
+            <ul class="list-unstyled components text-secondary">
+                <li>
+                    <a href="{% url 'home' %}"><i class="fas fa-home"></i>Accueil</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'rent' %}"><i class="fas fa-basket-shopping"></i>Emprunter</a>
+                </li>
+                {% if Grade == "Enseignant" or Grade == "Administratif" %}
+                <li>
+                    <a href="{% url 'listrent' %}"><i class="fas fa-exchange-alt"></i>Emprunts</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'components' %}"><i class="fas fa-cube"></i>Composants</a>
+                </li>
+                {% if Grade == "Enseignant" or Grade == "Administratif" %}
+                <li>
+                    <a href="{% url 'suppliers' %}"><i class="fas fa-cart-flatbed"></i>Fournisseurs</a>
+                </li>
+                <li>
+                    <a href="{% url 'places' %}"><i class="fas fa-school"></i>Emplacements</a>
+                </li>
+                <li>
+                    <a href="{% url 'users' %}"><i class="fas fa-users"></i>Utilisateurs</a>
+                </li>
+                {% endif %}
+                <li>
+                    <div class="sidebar-footer text-center p-3">
+                        <strong>Réau Gestion v0.1</strong>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ms-auto">
+                            {% if Username %}
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">{{ Username }}{% if Grade %} ({{ Grade }}){% endif %}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{% url 'deconnexion'%}">Se déconnecter</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="{% url 'connexion' %}">Se connecter</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container">
+                    <div class="page-title">
+                        <h3>{% if Title %} {{ Title }} {% endif %}</h3>
+                    </div>
+                    <section class="row">
+                        {% block content %}
+
+                        {% endblock %}
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    {% block scripts %}
+        
+    {% endblock %}
+</body>
+</html>

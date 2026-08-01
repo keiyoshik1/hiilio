@@ -1,0 +1,65 @@
+{% load mptt_tags %}
+{% load static %}
+
+<form method="POST" action="{{ url }}">
+    <div class="row g-2">
+    {% csrf_token %}
+
+        <div class="mb-3 col-md-12">
+            <label class="form-label" for="{{formprefix}}designation">Désignation&nbsp;:</label>
+            <input id="{{formprefix}}designation" class="form-control" type="text" name="designation" value="{{designation}}" maxlength="254" required>
+        </div>
+
+        <div class="mb-3 col-md-12">
+            <label class="form-label" for="{{formprefix}}placetype">Type d'emplacement&nbsp;:</label>
+            <select id="{{formprefix}}placetype" class="form-control" name="placetype" value="{{placetype}}"  required>
+                <option value="1" {% if placetype == 1 %}selected{% endif %}>Unique</option>
+                <option value="2" {% if placetype == 2 %}selected{% endif %}>Ligne</option>
+                <option value="3" {% if placetype == 3 %}selected{% endif %}>Colonne</option>
+                <option value="4" {% if placetype == 4 %}selected{% endif %}>Grille</option>
+            </select>
+        </div>
+
+        <div class="mb-3 col-md-4">
+            <label class="form-label" for="{{formprefix}}lignes">Lignes&nbsp;:</label>
+            <input id="{{formprefix}}lignes" class="form-control" type="number" name="lignes" value="{{lignes}}">
+        </div>
+
+        <div class="mb-3 col-md-4">
+            <label class="form-label" for="{{formprefix}}colonnes">Colonnes&nbsp;:</label>
+            <input id="{{formprefix}}colonnes" class="form-control" type="number" name="colonnes" value="{{colonnes}}">
+        </div>
+
+        <div class="mb-3 col-md-4">
+            <label class="form-label" for="{{formprefix}}emplacement">Cases&nbsp;:</label>
+            <input id="{{formprefix}}emplacement" class="form-control" type="number" name="emplacement" value="{{emplacement}}">
+        </div>
+
+        <div class="mb-3 col-md-12">
+            <label class="form-label" for="{{formprefix}}refname">Nom abrégé&nbsp;:</label>
+            <input id="{{formprefix}}refname" class="form-control" type="text" name="refname" value="{{refname}}" maxlength="254" required>
+        </div>
+
+        <div class="mb-3 col-md-12">
+            <input id="{{formprefix}}parent" class="form-control" type="hidden" name="parent" value="{{parent}}" >
+            <input id="{{formprefix}}id" class="form-control" type="hidden" name="id" value="{{id}}" >
+        </div>
+
+    </div>
+    <div class="d-grid gap-2">
+        {% if formprefix == 'u' %}
+        <div class="input-group">
+            <button type="submit" class="btn btn-warning col-md-6">
+                <i class="fas fa-sync"></i> Modifier
+            </button>
+            <button id="placeformdel" type="submit" class="btn btn-danger col-md-6">
+                <i class="fas fa-trash"></i> Supprimer
+            </button>
+        </div>
+        {% else %}
+        <button id="{{formprefix}}formadd" type="submit" class="btn btn-success">
+            <i class="fas fa-plus"></i> Ajouter
+        </button>
+        {% endif %}
+    </div>
+</form>

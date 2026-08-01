@@ -1,0 +1,51 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<form action="{{ FormResponse }}" method="POST" id="SupForm" aria-id="{{ id }}">
+    <div class="row g-2">
+    {% csrf_token %}
+    {% for field in FormulaireItem %}
+        {% if field.label == "CP" %}
+        <div class="mb-3 col-lg-2">
+        {% elif field.label == "Ville" %}
+        <div class="mb-3 col-lg-7">
+        {% elif field.label == "Pays" %}
+        <div class="mb-3 col-lg-3">
+        {% else %}
+        <div class="mb-3 col-lg-12">
+        {% endif %}
+
+            {% if field|field_type == "booleanfield" %}
+                {{ field|add_label_class:"form-check-label" }}
+                {% render_field field class+="form-check-input" %}
+
+            {% elif field|field_type == "hiddenfield" %}
+                {{ field|add_label_class:"form-check-label" }}
+                {% render_field field class+="form-check-input" %}}
+
+            {% else %}
+                {{ field|add_label_class:"form-label" }}
+                {% render_field field class+="form-control" %}
+            {% endif %}
+        </div>
+
+
+    {% endfor %}
+    </div>
+    <div class="d-grid gap-2">
+        {% if exist == "True" %}
+        <div class="input-group">
+            <button type="submit" class="btn btn-warning col-md-6">
+                <i class="fas fa-sync"></i> Modifier
+            </button>
+            <button type="submit" class="btn btn-danger col-md-6" id="supformdel">
+                <i class="fas fa-trash"></i> Supprimer
+            </button>
+        </div>
+        {% else %}
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-plus"></i> Ajouter
+        </button>
+        {% endif %}
+    </div>
+</form>

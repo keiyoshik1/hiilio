@@ -1,0 +1,24 @@
+{% load static %}
+
+{% if Characteristicsdata %}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th style="display: none;">id</th>
+                <th>Caractéristique</th>
+                <th>Valeur</th>
+                <th style="display: none;">itemid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in Characteristicsdata %}
+            <tr id="tablecaracrow{{ car.pk }}" aria-id="{{ car.pk }}" class="tr-table-carac">
+                <td style="display: none;">{{ car.pk }}</td>
+                <td>{{ car.name }}</td>
+                <td>{{ car.value }} {{ car.unit }}</td>
+                <td style="display: none;">{{ car.itemid }}</td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+{% endif %}

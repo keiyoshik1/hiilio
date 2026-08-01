@@ -1,0 +1,54 @@
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th style="display: none;">id</th>
+            <th>Nom</th>
+            <th>Site web</th>
+            <th>Livraison</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in ListSuppliers %}
+        <tr id="tablerow{{ item.pk }}" aria-id="{{ item.pk }}" class="tr-table">
+            <td style="display: none;">{{ item.pk }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.website }}</td>
+            <td>{% if item.supplydelay == 1 %}
+                    Rapide
+                {% elif item.supplydelay == 2 %}
+                    Moyen
+                {% elif item.supplydelay == 3 %}
+                    Lent
+                {% else %}
+                    {{ item.supplydelay }}
+                {% endif %}</td>
+        </tr>
+        {% endfor %}
+    <tbody>
+</table>
+
+<nav><ul class="pagination">
+    <li class="page-item {% if page.previous == page.current %}disabled{% endif %}">
+        <a class="page-link" href="{% url 'suppliers' %}list/{{ page.previous }}">Précédent</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" {% if page.previous == page.current %}style="display:none" {% endif %}href="{% url 'suppliers' 1 %}">1</a>
+    </li>
+
+    {% if page.previous != 1 and page.previous != 2 %}
+    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+    {% endif %}
+
+    <li class="page-item active"><a class="page-link" href="#">{{ page.current }}</a></li>
+
+    {% if page.next != page.max and page.next != page.maxm1 %}
+    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+    {% endif %}
+
+    {% if page.max > page.current %}
+    <li class="page-item"><a class="page-link" href="{% url 'suppliers' %}list/{{ page.max }}">{{ page.max }}</a></li>
+    {% endif %}
+
+
+    <li class="page-item {% if page.next == page.current %}disabled{% endif %}"><a class="page-link" href="{% url 'suppliers' %}list/{{ page.next }}">Suivant</a></li>
+</ul></nav>

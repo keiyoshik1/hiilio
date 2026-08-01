@@ -1,0 +1,222 @@
+{% extends "inventaire/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <!-- 1 - Emprunteur -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card" aria-hidden="true">
+                <div class="card-header">
+                    <h4>Emprunteur</h4>
+                </div>
+
+                <div class="card-body" id="rentuser">
+                    <!-- Barre de recherche + bouton d'ajout de composant -->
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="mb-3 col-12">
+                                <input class="form-control" autofocus id="1UserSearch" type="text" autocomplete="off" placeholder="Saisissez votre nom d'utilisateur ou scannez une carte élève" aria-describedby="searchbarbutton"></input>
+                                <ul id="searchresults" class="list-group"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Infos utilisateur -->
+                    <div class="row">
+                        <div class="col-md-8 col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div id="1Userid" hidden></div>
+                                    <h5 class="placeholder-glow"><span class="placeholder col-sm-6 col-12" id="1Name">Nom Prénom</span></h5>
+                                </div>
+                                <div class="card-body" id="rentuser">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item flex-fill placeholder-glow">
+                                                    <span class="fas fa-user" style="margin-right: 4px;"></span>
+                                                    <span id="1Username" class="placeholder col-sm-6 col-12">Username</span>
+                                                </li>
+                                                <li class="list-group-item flex-fill placeholder-glow">
+                                                    <span class="fas fa-id-card" style="margin-right: 4px;"></span>
+                                                    <span id="1CardId" class="placeholder col-sm-6 col-12">CardId</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <ul class="list-group list-group-flush placeholder-glow">
+                                                <li class="list-group-item flex-fill">
+                                                    <span class="fas fa-at" style="margin-right: 4px;"></span>
+                                                    <span id="1Email" class="placeholder col-sm-6 col-12">E-mail</span>
+                                                </li>
+                                                <li class="list-group-item flex-fill">
+                                                    <span class="fas fa-phone-volume" style="margin-right: 4px;"></span>
+                                                    <span id="1Phone" class="placeholder col-sm-6 col-12">Téléphone</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success col-12 disabled" id="1Valid"><span class="fas fa-arrow-right" style="margin-right: 4px;"></span>Continuer</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col sm-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">Nombre total d'emprunts
+                                    <span class="badge text-bg-success rounded-pill" id="1NTE">?</span>
+                                </li>
+                                <li class="list-group-item">Emprunts en cours
+                                    <span class="badge text-bg-primary rounded-pill" id="1NEC">?</span>
+                                </li>
+                                <li class="list-group-item">Emprunts en retard
+                                    <span class="badge text-bg-warning rounded-pill" id="1NER">?</span>
+                                </li>
+                                <li class="list-group-item">Emprunts retournés avec défauts
+                                    <span class="badge text-bg-danger rounded-pill" id="1NRD">?</span>
+                                </li>
+                                <li class="list-group-item">Emprunts non retournés
+                                    <span class="badge text-bg-danger rounded-pill" id="1NNR">?</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2 - Infos d'emprunt -->
+    <div class="row" hidden id="2Global">
+        <div class="col-12">
+            <div class="card" aria-hidden="true">
+                <div class="card-header">
+                    <h4>Caractéristiques de l'emprunt</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-12 mb-3">
+                            <label class="form-label" for="2date">Date de retour : </label>
+                            <input class="form-control" type="date" name="date" id="2Date"> 
+                        </div>
+                        <div class="col-sm-6 col-12 mb-3">
+                            <label class="form-label" for="2Place">Lieu et motif de l'emprunt : </label>
+                            <input class="form-control" type="text" name="place" id="2Place" autocomplete="off"> 
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-success col-12 disabled" id="2Valid"><span class="fas fa-arrow-right" style="margin-right: 4px;"></span>Continuer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 - Choix des composants -->
+    <div class="row" hidden id="3Global">
+        <div class="col-12">
+            <div class="card" aria-hidden="true">
+                <div class="card-header">
+                    <h4>Matériel</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Liste des composants-->
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="card" aria-hidden="true">
+                                <div class="card-header">
+                                    <h5>Matériel disponible</h5>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Barre de recherche -->
+                                    <div class="row">
+                                        <div class="mb-3 col-12">
+                                            <input class="form-control" type="text" id="3searchbar" aria-describedby="searchbarbutton"></input>
+                                        </div>
+                                    </div>
+                                    <div id="3Components">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="card" aria-hidden="true">
+                                <div class="card-header">
+                                    <h5>Matériel sélectionné</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table id="3Selected" class="table table-hover table-striped">
+                                        <thead>
+                                            <th style="display: none;">Id</th>
+                                            <th>Image</th>
+                                            <th>Désignation</th>
+                                            <th>Emplacement</th>
+                                            <th>Quantité</th>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-success col-12 disabled" id="3Valid"><span class="fas fa-arrow-right" style="margin-right: 4px;"></span>Continuer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 - Validation emprunt -->
+    <div class="row" id="4Global" hidden>
+        <div class="col-12">
+            <div class="card" aria-hidden="true">
+                <div class="card-header">
+                    <h4>Valideur</h4>
+                </div>
+
+                <div class="card-body" id="4rentuser">
+                    <!-- Barre de recherche -->
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="mb-3 col-12">
+                                <input class="form-control" id="4UserSearch" type="text" autocomplete="off" placeholder="Scannez une carte enseignant ou saisissez votre identifiant" aria-describedby="searchbarbutton"></input>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Infos utilisateur -->
+                    <div class="row" hidden id="4UserInfo">
+                        <div class="col-12">
+                            <p>Bonjour <span id="4Name">Nom, Prénom</span>. Veuillez saisir votre mot de passe pour valider l'emprunt.</p>
+                        </div>
+                            
+                        <div class="input-group">
+                            <label for="4pass" class="visually-hidden">Mot de passe </label>
+                            <input class="form-control" name="password" type="password" id="4pass" placeholder="Mot de passe">
+                            <input class="form-control" name="id" type="hidden" id="4id">
+                        
+                            <button class="btn btn-success" id="4Valid"><span class="fas fa-check" style="margin-right: 4px;"></span>Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- csrf -->
+    <div class="csrf">
+        {% csrf_token %}
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/rent.js' %}"></script>
+{% endblock %}
+
+

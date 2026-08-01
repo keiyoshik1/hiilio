@@ -1,0 +1,31 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<form action="#" method="POST" class="priceform" id="priceform">
+    <div class="row g-2">
+    {% csrf_token %}
+    {% for field in PriceForm %}
+        <div class="mb-3 col-md-12">
+            {% if field|field_type == "modelchoicefield" %}
+                {% render_field field class+="form-control" %}
+            {% else %}
+                {{ field|add_label_class:"form-label" }}
+                {% render_field field class+="form-control" %}
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    </div>
+    <input type="hidden" id="priceformrefid" value="{{ id }}"></input>
+    <div class="input-group">
+        <button type="submit" id="pricesave" class="btn btn-success col-md-4">
+            <i class="fas fa-save"></i> Enregistrer
+        </button>
+        <button type="submit" id="pricereset" class="btn btn-warning col-md-4">
+            <i class="fas fa-redo"></i> Réinitialiser
+        </button>
+        <button type="submit" id="pricedelete" class="btn btn-danger col-md-4">
+            <i class="fas fa-trash-alt"></i> Supprimer
+        </button>
+    </div>
+</form>

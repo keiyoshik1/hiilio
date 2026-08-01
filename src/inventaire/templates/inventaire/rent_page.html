@@ -1,0 +1,86 @@
+{% extends "inventaire/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <!-- Liste des composants -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input class="form-control" type="text" id="searchbar" aria-describedby="searchbarbutton"></input>
+                            <button type="button" class="btn btn-primary" id="searchbarbutton" type="button"><i class="fas fa-search"></i> Rechercher</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" id="renttable">
+                {{ ListRent }}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Formulaire de suivi de l'emprunt -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Suivi emprunt</h4>
+                <span id="refemprunt"></span>
+            </div>
+            <div class="card-body" id="details">
+                <div class="alert alert-primary" role="alert">
+                    En attente de sélection d'un utilisateur ou d'appui sur le bouton de création.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        {% csrf_token %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/rentlist.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+{% extends "inventaire/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<!-- Barre de recherche + bouton d'ajout de composant -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <div class="row">
+                <div class="mb-3 col-md-9">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="searchbar" aria-describedby="searchbarbutton"></input>
+                        <button type="button" class="btn btn-primary" id="searchbarbutton" type="button"><i class="fas fa-search"></i> Rechercher</button>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <button type="button" class="btn btn-success"  id="addnewbutton" type="button" style="width:100%" {% if Grade != "Enseignant" and Grade != "Administratif" %}disabled{% endif %}><i class="fas fa-plus"></i></button>
+                </div>
+            </div></div>
+            <!--<div class="card-body">
+
+            </div>-->
+        </div>
+    </div>
+
+
+    <!-- Liste des composants -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Les composants</h4>
+            </div>
+            <div class="card-body" id="itemstable">
+                {{ ListItems }}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Formulaire d'ajout/Modification -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Modifier/Ajouter</h4>
+            </div>
+            <div class="card-body" id="item">
+                <div class="alert alert-primary" role="alert">
+                    En attente de sélection d'un composant ou d'appui sur le bouton de création.
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Autres informations du composant -->
+    <div class="box box-primary">
+        <div class="box-body">
+            <!-- Menu à onglets -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="caracteristiques-tab" data-bs-toggle="tab" href="#caracteristiques" role="tab" aria-controls="caracteristiques" aria-selected="true">Caractéristiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="ressources-tab" data-bs-toggle="tab" href="#ressources" role="tab" aria-controls="ressources" aria-selected="false">Ressources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="fournisseurs-tab" data-bs-toggle="tab" href="#fournisseurs" role="tab" aria-controls="fournisseurs" aria-selected="false">Fournisseurs</a>
+                </li>
+            </ul>
+
+            <!-- Caractéristiques -->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active show" id="caracteristiques" role="tabpanel" aria-labelledby="caracteristiques-tab">
+                    <div id="caractdata">
+                        <div class="alert alert-primary" role="alert">
+                            Rien à afficher pour le moment
+                        </div>
+                    </div>
+
+                    <div id="caractform">
+
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="ressources" role="tabpanel" aria-labelledby="ressources-tab">
+
+                    <div id="ressourcedata">
+                        <div class="alert alert-primary" role="alert">
+                            Rien à afficher pour le moment
+                        </div>
+                    </div>
+
+                    <div id="ressourceform">
+
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="fournisseurs" role="tabpanel" aria-labelledby="fournisseurs-tab">
+
+                    <div id="pricedata">
+                        <div class="alert alert-primary" role="alert">
+                            Rien à afficher pour le moment
+                        </div>
+                    </div>
+
+                    <div id="priceform">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/components.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

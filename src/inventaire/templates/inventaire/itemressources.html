@@ -1,0 +1,40 @@
+{% load static %}
+
+{% if RessourcesData %}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th style="display: none;">id</th>
+                <th>Type</th>
+                <th>Ressource</th>
+                <th style="display: none;">itemid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in RessourcesData %}
+            <tr id="tableresrow{{ res.pk }}" aria-id="{{ res.pk }}" class="tr-table-res">
+                <td style="display: none;">{{ res.pk }}</td>
+                <td>
+                    {% if res.ressourcetype == 1 %}
+                        Driver
+                    {% elif res.ressourcetype == 2 %}
+                        Documentation
+                    {% elif res.ressourcetype == 3 %}
+                        Exemple
+                    {% elif res.ressourcetype == 4 %}
+                        Source
+                    {% elif res.ressourcetype == 5 %}
+                        Autre
+                    {% endif %}
+                </td>
+                {% if res.ressourcefile == "" %}
+                    <td><a href="{{ res.ressourceurl }}" target="_blank">{{ res.ressourcename }}</a></td>
+                {% else %}
+                    <td><a href="/static/{{ res.ressourcefile }}" target="_blank">{{ res.ressourcename }}</a></td>
+                {% endif %}
+                <td style="display: none;">{{ res.itemid }}</td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+{% endif %}

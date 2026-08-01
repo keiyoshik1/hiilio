@@ -1,0 +1,73 @@
+{% extends "inventaire/base.html" %}
+
+{% load mptt_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Les emplacements</h4>
+            </div>
+            <div class="card-body" id="Emplacements"></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Nouvel emplacement racine</h4>
+            </div>
+            <div class="card-body" id="formnewroot">
+                <div class="alert alert-primary" role="alert">
+                    En attente de sélection d'un composant ou d'appui sur le bouton de création.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Formulaire d'ajout/Modification -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Modifier l'élément</h4>
+            </div>
+            <div class="card-body" id="formupdateposition">
+                <div class="alert alert-primary" role="alert">
+                    En attente de sélection d'un composant ou d'appui sur le bouton de création.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Ajouter un nouvel élément</h4>
+            </div>
+            <div class="card-body" id="formnewposition">
+                <div class="alert alert-primary" role="alert">
+                    En attente de sélection d'un composant ou d'appui sur le bouton de création.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'vendor/quercus/treeview.js' %}"></script>
+    <script src="{% static 'js/places.js' %}"></script>
+    <script id="script">
+        emplacementdata = {% include "inventaire/tree.html" %}
+
+        tree = new Treeview({
+            containerId: 'Emplacements',
+            data: emplacementdata,
+            searchEnabled: false,
+            initiallyExpanded: true,
+            multiSelectEnabled: false,
+            onSelectionChange: (selectionChange) => loadForm(selectionChange)
+        });
+        const Emplacements = document.getElementById('Emplacements');
+
+</script>
+{% endblock %}
+
+{% block head %}
+    <link href="{% static 'vendor/quercus/treeview.css' %}" rel="stylesheet">
+{% endblock %}

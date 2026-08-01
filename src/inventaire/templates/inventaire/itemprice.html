@@ -1,0 +1,27 @@
+{% load static %}
+
+{% if SupplierPriceData %}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th style="display: none;">id</th>
+                <th>Fournisseur</th>
+                <th>Référence</th>
+                <th>Prix</th>
+                <th style="display: none;">itemid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in SupplierPriceData %}
+            <tr id="tablepricerow{{ res.pk }}" aria-id="{{ res.pk }}" class="tr-table-price">
+                <td style="display: none;">{{ res.pk }}</td>
+                <td>{{ res.supplierid.name }}</td>
+                <td>{{ res.supplierreference }}</td>
+                <td>{{ res.lastprice }} {% if res.taxes == 1 %}HT{% else %}TTC{% endif %}</td>
+
+                <td style="display: none;">{{ res.itemid }}</td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+{% endif %}

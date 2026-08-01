@@ -1,0 +1,15 @@
+{% extends "inventaire/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <p>Bienvenue sur le site internet de gestion du matériel des lycées Réaumur et Buron.</p>
+        <p>Pour interagir avec le site, il vous sera demandé d'être connecté. La plupart des pages vérifient 
+            effectivement l'état de connexion des utilisateurs avant de s'afficher.</p>
+        <p>Pour vous connecter : <a href="{% url 'connexion' %}">C'est par ici</a></p>
+    </div>
+</div>
+
+{% endblock %}

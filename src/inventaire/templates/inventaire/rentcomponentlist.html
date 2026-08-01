@@ -1,0 +1,29 @@
+<table class="table table-hover table-striped" id="list3">
+    <thead>
+        <tr id="init3components">
+            <th style="display: none;">id</th>
+            <th>image</th>
+            <th>Désignation</th>
+            <th>Emplacement</th>
+            <th>Ajouter</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in ListItems %}
+        <tr id="tablerow{{ item.pk }}" aria-id="{{ item.pk }}" class="tr-table">
+            <td style="display: none;">{{ item.pk }}</td>
+            <td><img src="/static/{{ item.image }}" width="50px" height="auto"></td>
+            <td>{{ item.designation }}</td>
+            <td>{{ item.position }}</td>
+            <td>
+                <div class="input-group">
+                    <input class="form-control" type="number" style="max-width:75px;" min="1" value="1" max="{{ item.quantity }}">
+                    <button class="btn btn-success">
+                        <span class="fas fa-plus"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    <tbody>
+</table>
