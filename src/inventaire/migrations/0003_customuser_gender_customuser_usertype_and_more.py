@@ -8,18 +8,21 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventaire', '0002_item_suppliers_characteristics_itemressource_place_and_more'),
     ]
-
+    
     operations = [
+        # séléction du genre
         migrations.AddField(
             model_name='customuser',
             name='gender',
             field=models.IntegerField(choices=[(1, 'Homme'), (2, 'Femme')], default=1),
         ),
+        # type de l'utilisateur
         migrations.AddField(
             model_name='customuser',
             name='usertype',
             field=models.IntegerField(choices=[(1, 'Élève'), (2, 'Enseignant'), (3, 'Administratif')], default=1),
         ),
+        # les ressources
         migrations.AddField(
             model_name='itemressource',
             name='ressourcetype',
@@ -30,6 +33,7 @@ class Migration(migrations.Migration):
             name='placetype',
             field=models.IntegerField(choices=[(1, 'Unique'), (2, 'Ligne'), (3, 'Colonne'), (4, 'Grille')], default=1),
         ),
+        #délai d'attente
         migrations.AddField(
             model_name='suppliers',
             name='supplydelay',
