@@ -90,7 +90,7 @@ def user(request, id=None):
 
     return render(request, "inventaire/userform.html", context)
 
-
+# enregistrement du compte
 def usersave(request, id=None):
     log = request.user.is_authenticated
     if not log:
@@ -133,7 +133,7 @@ def usersave(request, id=None):
 
     return HttpResponseBadRequest("Requête incorrecte")
 
-
+# suppression du compte
 def userdelete(request, id):
     log = request.user.is_authenticated
     if not log:
